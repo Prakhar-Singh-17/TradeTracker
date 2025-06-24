@@ -1,0 +1,15 @@
+*{
+    font-family: "Inter", sans-serif;
+}
+a{
+    color: #387ed1 !important;
+}
+
+.nav-link , .footer-link{
+    color : #666 !important;
+    text-decoration: none;
+}
+
+.table th, .table td {
+  padding: 0.5rem !important; /* Adjust as needed */
+}
