@@ -19,18 +19,18 @@ const Menu = () => {
         <ul>
           <li>
             <Link
-              style={{ textDecoration: "none" }}
-              to="/"
+              style={{ textDecoration: "none"}}
+              to="/dashboard"
               onClick={() => handleOptionSelect(0)}
               className={optionSelected === 0 ? selectedClass : hoverClass}
             >
-              <p>Dashboard</p>
+              <p>Summary</p>
             </Link>
           </li>
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="/orders"
+              to="/dashboard/orders"
               onClick={() => handleOptionSelect(1)}
               className={optionSelected === 1 ? selectedClass : hoverClass}
             >
@@ -40,7 +40,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="/holdings"
+              to="/dashboard/holdings"
               onClick={() => handleOptionSelect(2)}
               className={optionSelected === 2 ? selectedClass : hoverClass}
             >
@@ -50,7 +50,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="/positions"
+              to="/dashboard/positions"
               onClick={() => handleOptionSelect(3)}
               className={optionSelected === 3 ? selectedClass : hoverClass}
             >
@@ -60,7 +60,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="/funds"
+              to="/dashboard/funds"
               onClick={() => handleOptionSelect(4)}
               className={optionSelected === 4 ? selectedClass : hoverClass}
             >
@@ -70,7 +70,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="/apps"
+              to="/dashboard/apps"
               onClick={() => handleOptionSelect(5)}
               className={optionSelected === 5 ? selectedClass : hoverClass}
             >
@@ -78,11 +78,6 @@ const Menu = () => {
             </Link>
           </li>
         </ul>
-        <hr />
-        <div className="profile">
-          <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
-        </div>
       </div>
     </div>
   );

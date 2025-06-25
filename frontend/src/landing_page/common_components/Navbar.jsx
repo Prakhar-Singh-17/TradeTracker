@@ -22,8 +22,8 @@ export default function Navbar() {
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto gap-3">
             <li class="nav-item">
-              <Link class="nav-link" to="/signup">
-                Signup
+              <Link class="nav-link" to="/dashboard">
+                Dashboard
               </Link>
             </li>
             <li class="nav-item">

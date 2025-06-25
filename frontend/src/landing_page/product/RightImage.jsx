@@ -7,7 +7,7 @@ export default function RightImage({imageUrl , heading , description, link1}) {
             <div className="col-5 p-5 d-flex flex-column gap-3 justify-content-center">
                 <h2>{heading}</h2>
                 <p>{description}</p>
-                  <a href={link1}>Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                  <a className="ui-links" >Learn More <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div className="col-7 p-5"><img src={imageUrl}/></div>
         </div>

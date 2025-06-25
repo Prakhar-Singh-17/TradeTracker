@@ -1,7 +1,7 @@
 *{
     font-family: "Inter", sans-serif;
 }
-a{
+.ui-links{
     color: #387ed1 !important;
 }
 
@@ -13,3 +13,4 @@ a{
 .table th, .table td {
   padding: 0.5rem !important; /* Adjust as needed */
 }
+

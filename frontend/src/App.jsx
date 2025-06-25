@@ -2,7 +2,7 @@ import HomePage from "./landing_page/home/HomePage";
 import About from "./landing_page/about/About";
 import Pricing from "./landing_page/pricing/Pricing";
 import Product from "./landing_page/product/Product";
-import Signup from "./landing_page/signup/Signup";
+import Dashboard from "./landing_page/dashboard/Dashboard";
 import Support from "./landing_page/support/Support";
 import Navbar from "./landing_page/common_components/Navbar";
 import Footer from "./landing_page/common_components/Footer";
@@ -18,7 +18,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/product" element={<Product />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard/*" element={<Dashboard />} />
         <Route path="/support" element={<Support />} />
       </Routes>
       <Footer />

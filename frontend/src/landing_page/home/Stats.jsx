@@ -45,10 +45,10 @@ export default function Stats() {
           </div>
           <div className="row">
             <div className="col text-center">
-              <a>Explore our products <i class="fa-solid fa-arrow-right"></i></a>
+              <a className="ui-links">Explore our products <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div className="col text-center">
-              <a>Try Kite demo <i class="fa-solid fa-arrow-right"></i></a>
+              <a className="ui-links">Try Kite demo <i class="fa-solid fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
