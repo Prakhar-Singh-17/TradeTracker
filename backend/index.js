@@ -11,6 +11,7 @@ import MongoStore from "connect-mongo";
 import session from "express-session";
 import passport from "passport";
 import LocalStrategy from "passport-local";
+import cookieParser from "cookie-parser";
 
 import { stocklist, watchlist } from "../frontend/src/data/data.js";
 
@@ -54,6 +55,7 @@ const sessionOptions = {
     secure: true
   }
 };
+app.use(cookieParser()); 
 app.use(session(sessionOptions));
 
 
