@@ -1,8 +1,12 @@
 import axios from "axios";
 
+const isLocal = window.location.hostname === "localhost";
+
 const api = axios.create({
-  baseURL: "https://tradetrackerbackend-ja6g.onrender.com", 
+  baseURL: isLocal 
+    ? "http://localhost:8080" 
+    : "https://tradetrackerbackend-ja6g.onrender.com",
   withCredentials: true,
 });
 
-export {api as axios};
+export { api as axios };

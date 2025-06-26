@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { axios } from "../axiosConfig";
+import HoldingsPieChart from "./HoldingsPieChart";
 
 const Summary = () => {
   let [username, setUsername] = useState("User");
@@ -79,6 +80,9 @@ const Summary = () => {
           </div>
         </div>
         <hr className="divider" />
+        <div className="section">
+                <HoldingsPieChart holdings={holdings} />
+        </div>
       </div>
     </>
   );
