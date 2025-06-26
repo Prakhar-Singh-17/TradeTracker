@@ -45,7 +45,7 @@ const sessionOptions = {
   store,
   secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -76,6 +76,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.post("/signup", async (req, res, next) => {
   try {
+    console.log("Signup request body:", req.body);
     const { username, password } = req.body;
     const user = new User({ username });
     await User.register(user, password);
