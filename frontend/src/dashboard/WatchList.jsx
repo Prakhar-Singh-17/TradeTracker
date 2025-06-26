@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Tooltip from "@mui/material/Tooltip";
-import AddchartIcon from "@mui/icons-material/AddChart";
-import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import { axios } from "../axiosConfig";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom"; 
@@ -166,13 +164,13 @@ function WatchListActions({ stock, openModal, viewWatchlist, fetchwatchlist }) {
         {viewWatchlist ? (
           <Tooltip title="Remove from Watchlist" placement="top" arrow>
             <button className="action" onClick={removefromwatchlist}>
-              <BookmarkRemoveIcon className="icon" />
+              <i className="fa-solid fa-trash icon"></i>
             </button>
           </Tooltip>
         ) : (
           <Tooltip title="Add to Watchlist" placement="top" arrow>
             <button className="action" onClick={addtowatchlist}>
-              <AddchartIcon className="icon" />
+              <i className="fa-solid fa-file-circle-plus icon"></i>
             </button>
           </Tooltip>
         )}
