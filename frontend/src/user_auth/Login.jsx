@@ -13,7 +13,7 @@ export default function Login({setloggedIn}) {
       .then((res)=>{
         console.log(res.data);
          setloggedIn(true)
-         navigate("/dashboard");
+         navigate("/dashboard/*");
       })
   };
 
