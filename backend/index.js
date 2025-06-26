@@ -22,7 +22,7 @@ const port = process.env.port || 8080;
 const mongoUrl = process.env.MONGO_URL;
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: "https://tradetracker-7b5i.onrender.com",
   credentials:true
 }));
 
