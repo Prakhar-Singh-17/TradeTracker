@@ -46,13 +46,16 @@ const sessionOptions = {
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
-  Cookie : {
-    expires : Date.now() + 7*24*60*60*1000,
-    maxAge : 7*24*60*60*1000,
+  cookie: {
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
+    sameSite: "none",
+    secure: true
   }
-}
+};
 app.use(session(sessionOptions));
+
 
 
 
