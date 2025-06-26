@@ -1,7 +1,29 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { axios } from "../../axiosConfig";
 
-export default function Navbar() {
+export default function Navbar({ setloggedIn, loggedIn }) {
+  let [username, setUsername] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get("/check-auth").then((res) => {
+      console.log(res.data);
+      setUsername(res.data.user.username);
+    });
+  }, [loggedIn]);
+
+  function handleLogout() {
+    axios.get("/logout").then((res) => {
+      if (res.data.success) {
+        setloggedIn(false);
+        setUsername("");
+        navigate("/");
+      }
+    });
+  }
   return (
     <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
       <div class="container-fluid p-2 px-5">
@@ -20,7 +42,7 @@ export default function Navbar() {
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto gap-3">
+          <ul class="navbar-nav ms-auto gap-3 align-items-center">
             <li class="nav-item">
               <Link class="nav-link" to="/dashboard">
                 Dashboard
@@ -46,34 +68,64 @@ export default function Navbar() {
                 Support
               </Link>
             </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="fa-solid fa-bars"></i>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </li>
+            {loggedIn ? (
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="fa-solid fa-user"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <div class="dropdown-item" href="#">
+                      <span
+                        style={{
+                          backgroundColor: "#387ed1",
+                          color: "white",
+                          padding: "0.25rem 0.5rem",
+                          borderRadius: "50%",
+                          marginRight: "1rem",
+                        }}
+                      >
+                        {username[0]}
+                      </span>
+                      <span>{username}</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      class="dropdown-item"
+                      href="#"
+                      onClick={handleLogout}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <span
+                        style={{
+                          padding: "0 0.5rem",
+                          color: "red",
+                          borderRadius: "50%",
+                          marginRight: "1rem",
+                        }}
+                      >
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                      </span>
+                      <span>Logout</span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            ) : (
+              <Link class="nav-link" to="/login">
+                <button className="btn btn-success">
+                  
+                  <i class="fa-solid fa-right-to-bracket"></i> Login
+                </button>
+              </Link>
+            )}
           </ul>
         </div>
       </div>

@@ -228,9 +228,9 @@
   margin-top: 2%;
 }
 
-.dashboard-scope .row .col:last-child h5 {
+/* .dashboard-scope .row .col:last-child h5 {
   color: rgb(72, 194, 55);
-}
+} */
 
 /* sudo selector */
 .dashboard-scope .item:hover {
@@ -462,9 +462,9 @@
   margin-top: 2%;
 }
 
-.dashboard-scope .row .col:last-child h5 {
+/* .dashboard-scope .row .col:last-child h5 {
   color: rgb(72, 194, 55);
-}
+} */
 
 /* sudo selector */
 .dashboard-scope .item:hover {

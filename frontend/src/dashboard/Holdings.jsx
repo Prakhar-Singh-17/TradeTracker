@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { axios } from "../axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 const Holdings = () => {
   let [total, setTotal] = useState(0);
@@ -8,19 +9,26 @@ const Holdings = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/allHoldings")
+      .get("/getholdingdata")
       .then((res) => {
-        console.log(res);
         const data = res.data.holdings;
-        setHoldings(res.data.holdings);
+        setHoldings(data);
+
         let totalVal = 0;
         let currentVal = 0;
-        data.map((stock) => {
-          const currVal = stock.price * stock.qty;
-          totalVal += currVal;
-          const pnl = currVal - stock.avg * stock.qty;
-          currentVal += currVal + pnl;
+
+        data.forEach((item) => {
+          const price = item.stock.price;
+          const percentChange =
+            parseFloat(item.stock.percent.replace("%", "")) / 100;
+          const avgCost = price / (1 + percentChange);
+          const qty = item.quantity;
+
+          const currVal = price * qty;
+          totalVal += avgCost * qty;
+          currentVal += currVal;
         });
+
         setTotal(totalVal);
         setCurrent(currentVal);
       })
@@ -28,41 +36,60 @@ const Holdings = () => {
         console.log(err);
       });
   }, []);
+
+  const pnl = current - total;
+  const pnlPercent = total === 0 ? 0 : (pnl / total) * 100;
+
   return (
     <>
       <h3 className="title">Holdings ({holdings.length})</h3>
 
       <div className="order-table">
         <table>
-          <tr>
-            <th>Instrument</th>
-            <th>Qty.</th>
-            <th>Avg. cost</th>
-            <th>LTP</th>
-            <th>Cur. val</th>
-            <th>P&L</th>
-            <th>Net chg.</th>
-            <th>Day chg.</th>
-          </tr>
-          {holdings.map((stock, idx) => {
-            let currVal = stock.price * stock.qty;
-            let pnl = currVal - stock.avg * stock.qty;
-            let pnlClass = pnl > 0 ? "profit" : "loss";
-            let dayClass = stock.isLoss ? "loss" : "profit";
+          <thead>
+            <tr>
+              <th>Instrument</th>
+              <th>Qty.</th>
+              <th>Avg. cost</th>
+              <th>LTP</th>
+              <th>Cur. val</th>
+              <th>P&L</th>
+              <th>Net chg.</th>
+              <th>Day chg.</th>
+            </tr>
+          </thead>
+          <tbody>
+            {holdings.map((item, idx) => {
+              const stock = item.stock;
+              const qty = item.quantity;
+              const ltp = stock.price;
+              const percent = parseFloat(stock.percent.replace("%", "")) / 100;
+              const avgCost = ltp / (1 + percent);
+              const curVal = ltp * qty;
+              const totalCost = avgCost * qty;
+              const pnl = curVal - totalCost;
+              const netChg = ltp - avgCost;
 
-            return (
-              <tr key={idx}>
-                <td>{stock.name}</td>
-                <td>{stock.qty}</td>
-                <td>{stock.avg.toFixed(2)}</td>
-                <td>{stock.price.toFixed(2)}</td>
-                <td>{currVal}</td>
-                <td className={pnlClass}>{pnl.toFixed(2)}</td>
-                <td className={pnlClass}>{stock.net}</td>
-                <td className={dayClass}>{stock.day}</td>
-              </tr>
-            );
-          })}
+              return (
+                <tr key={idx}>
+                  <td>{stock.name}</td>
+                  <td>{qty}</td>
+                  <td>{avgCost.toFixed(2)}</td>
+                  <td>{ltp}</td>
+                  <td>{curVal.toFixed(2)}</td>
+                  <td className={pnl >= 0 ? "profit" : "loss"}>
+                    {pnl.toFixed(2)}
+                  </td>
+                  <td className={netChg >= 0 ? "profit" : "loss"}>
+                    {netChg.toFixed(2)}
+                  </td>
+                  <td className={percent >= 0 ? "profit" : "loss"}>
+                    {stock.percent}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
 
@@ -82,9 +109,16 @@ const Holdings = () => {
           <p>Current value</p>
         </div>
         <div className="col">
-          <h5>
-            {(current - total).toFixed(2)}
-            <span>({((current - total) / total).toFixed(2)}%)</span>
+          <h5
+            style={{
+              color: pnl >= 0 ? "green" : "red",
+            }}
+          >
+            {pnl.toFixed(2)}
+            <span style={{ color: pnl >= 0 ? "green" : "red" }}>
+              {" "}
+              ({pnlPercent.toFixed(2)}%)
+            </span>
           </h5>
           <p>P&L</p>
         </div>
