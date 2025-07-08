@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { axios } from "../axiosConfig";
-import { useNavigate } from "react-router-dom";
 
 const Holdings = () => {
   let [total, setTotal] = useState(0);
@@ -123,6 +122,7 @@ const Holdings = () => {
           <p>P&L</p>
         </div>
       </div>
+            <HoldingsPieChart holdings={holdings} />
     </>
   );
 };
